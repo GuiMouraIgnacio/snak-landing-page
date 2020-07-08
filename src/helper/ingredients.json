@@ -23,8 +23,10 @@
         ]
       },
       {
-        "name": "Açucar",
+        "name": "Açúcar",
         "synonyms":[
+          "açúcar",
+          "acúcar",
           "açucar",
           "acucar"
         ]
@@ -239,10 +241,10 @@
         ]
       },
       {
-        "name": "Manjeiricão",
+        "name": "Manjericão",
         "synonyms":[
-          "manjeiricão",
-          "manjeiricao"
+          "manjericão",
+          "manjericao"
         ]
       },
       {
@@ -594,7 +596,7 @@
     ]
   },
   {
-    "title": "Temperos e Condimentos",
+    "title": "Temperos",
     "icon": "fas fa-mortar-pestle",
     "options": [
       {
@@ -640,9 +642,9 @@
         ]
       },
       {
-        "name": "Cuminho",
+        "name": "Cominho",
         "synonyms":[
-          "cuminho"
+          "cominho"
         ]
       },
       {
@@ -821,9 +823,9 @@
         ]
       },
       {
-        "name": "Salami",
+        "name": "Salame",
         "synonyms":[
-          "salami"
+          "salame"
         ]
       },
       {
@@ -948,9 +950,9 @@
     "icon": "fas fa-brain",
     "options": [
       {
-        "name": "Amenduim",
+        "name": "Amendoim",
         "synonyms":[
-          "amenduim"
+          "amendoim"
         ]
       },
       {

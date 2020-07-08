@@ -14,7 +14,7 @@ const Hero = () => {
         <p className="lead font-weight-normal">
           Descomplicando a cozinha do dia-a-dia!
         </p>
-        <a className="btn btn-primary" href="#cardapio">
+        <a className="btn btn-primary" href="#receita">
           Teste já!
         </a>
       </div>
