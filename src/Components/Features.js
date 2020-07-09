@@ -3,28 +3,22 @@ import app_svg from "../assets/undraw_Mobile_app_p3ts.svg";
 
 const features = [
   {
-    name: "Funcionalidade 1",
+    name: "Match Perfeito",
     description:
-      "O porque da funcionalidade 1 ser tāo incrível e útil pro usuário.",
+      "Nos diga o que você tem na geladeira e nós te mandamos uma receita para aproveitar esses ingredientes.",
     icon: "bacon",
   },
   {
-    name: "Funcionalidade 2",
+    name: "Seja um ninja da cozinha",
     description:
-      "O porque da funcionalidade 2 ser tāo incrível e útil pro usuário.",
+      "Todo dia postamos uma nova dica no nosso intagram para facilitar a cozinha nossa de cada dia.",
     icon: "carrot",
   },
   {
-    name: "Funcionalidade 3",
+    name: "Cardápio semanal",
     description:
-      "O porque da funcionalidade 3 ser tāo incrível e útil pro usuário.",
+      "Fuja do frango com salada padrão! Criamos cardápios semanais com receitas simples e diferentes para o seu dia-a-dia.",
     icon: "candy-cane",
-  },
-  {
-    name: "Funcionalidade 4",
-    description:
-      "O porque da funcionalidade 4 ser tāo incrível e útil pro usuário.",
-    icon: "cheese",
   },
 ];
 
