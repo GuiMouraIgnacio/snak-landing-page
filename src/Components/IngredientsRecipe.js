@@ -15,7 +15,7 @@ const IngredientsRecipe = () => {
     "Óleo",
     "Azeite",
     "Sal",
-    "Açucar",
+    "Açúcar",
     "Farinha de Trigo",
     "Água",
   ]);

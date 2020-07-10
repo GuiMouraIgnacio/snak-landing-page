@@ -47,7 +47,7 @@ const findIngredientSynonims = (name) => {
       }
     });
   });
-  return ing.synonyms;
+  return ing && ing.synonyms ? ing.synonyms : [];
 };
 
 const findBestRecipe = (recipeList) => {
