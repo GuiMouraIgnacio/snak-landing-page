@@ -27,7 +27,7 @@ const filterRecipe = (
   if (reducedRecipes.length === 0) {
     const bestRecipe = findBestRecipe(recipesList);
     return {
-      perfect: false,
+      allIngredients: false,
       recipe: bestRecipe,
       excessIngredients:
         bestRecipe.ingredients.length === ingLength - ingredients.length
@@ -40,8 +40,8 @@ const filterRecipe = (
 
 const findIngredientSynonims = (name) => {
   let ing;
-  originIngredients.map((category) => {
-    category.options.map((item) => {
+  originIngredients.forEach((category) => {
+    category.options.forEach((item) => {
       if (name === item.name) {
         ing = item;
       }

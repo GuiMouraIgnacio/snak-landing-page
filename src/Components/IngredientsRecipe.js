@@ -32,8 +32,8 @@ const IngredientsRecipe = () => {
         template = "template_xHsWf29c_clone"; // match bom
         if (result.allIngredients) template = "template_xHsWf29c"; // match perfeito
       }
-      const ingredientsHtml = `<ul>${result.recipe.ingredients.map(ing => `<li>${ing}</li>`)}</ul>`.replace(/\>\,\</g,'><');;
-      const stepsHtml = `<ul>${result.recipe.steps.map(step => `<li>${step}</li>`)}</ul>`.replace(/\>\,\</g,'><');
+      const ingredientsHtml = `<ul>${result.recipe.ingredients.map(ing => `<li>${ing}</li>`)}</ul>`.replace(/>,</g,'><');;
+      const stepsHtml = `<ul>${result.recipe.steps.map(step => `<li>${step}</li>`)}</ul>`.replace(/>,</g,'><');
       window.emailjs
         .send("gmail", template, {
           to_email: email,

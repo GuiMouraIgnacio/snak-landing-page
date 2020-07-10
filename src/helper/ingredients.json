@@ -40,8 +40,7 @@
       {
         "name": "Água",
         "synonyms":[
-          "água",
-          "agua"
+          ""
         ]
       }
     ]
@@ -84,8 +83,15 @@
         ]
       },
       {
+        "name": "Queijo (qualquer)",
+        "synonyms":[
+          "queijo"
+        ]
+      },
+      {
         "name": "Mussarela",
         "synonyms":[
+          "queijo",
           "mussarela",
           "muçarela",
           "mozarela",
@@ -95,6 +101,7 @@
       {
         "name": "Parmesão",
         "synonyms":[
+          "queijo",
           "parmesão",
           "parmesao"
         ]
@@ -102,6 +109,7 @@
       {
         "name": "Cheddar",
         "synonyms":[
+          "queijo",
           "cheddar",
           "chedar"
         ]
@@ -109,6 +117,7 @@
       {
         "name": "Brie",
         "synonyms":[
+          "queijo",
           "brie"
         ]
       },
@@ -121,18 +130,21 @@
       {
         "name": "Queijo Prato",
         "synonyms":[
+          "queijo",
           "queijo prato"
         ]
       },
       {
         "name": "Queijo Minas",
         "synonyms":[
+          "queijo",
           "queijo minas"
         ]
       },
       {
         "name": "Queijo Branco",
         "synonyms":[
+          "queijo",
           "queijo branco"
         ]
       },
