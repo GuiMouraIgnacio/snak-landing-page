@@ -58,7 +58,7 @@ const IngredientsRecipe = () => {
       arrayCopy.splice(index, 1);
       setIngredientsList(arrayCopy);
     } else {
-      setIngredientsList([...ingredientsList, name]);
+      setIngredientsList([name,...ingredientsList]);
     }
   };
   return (
