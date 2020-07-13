@@ -38,6 +38,12 @@ const filterRecipe = (
   return filterRecipe(ingredients, reducedRecipes, recipesList, ingLength);
 };
 
+function between(min, max) {  
+  return Math.floor(
+    Math.random() * (max - min + 1) + min
+  )
+}
+
 const findIngredientSynonims = (name) => {
   let ing;
   originIngredients.forEach((category) => {
@@ -60,6 +66,9 @@ const findBestRecipe = (recipeList) => {
     (a, b) =>
       Number(b.likes.replace(".", "")) - Number(a.likes.replace(".", ""))
   );
-  return newRecipeList[0];
+  const min = 0;
+  const max = newRecipeList.length >= 10 ? 9 : newRecipeList.length;
+  return newRecipeList[between(min, max)];
 };
+
 export default filterRecipe;
