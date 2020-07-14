@@ -124,13 +124,31 @@
   background-color: #f8f9fa;
   border: 0px !important;
   border-radius: 0;
-  min-height: 120px;
-  max-height: 120px;
 }
 
-.ingredients {
-  overflow-x: auto;
-  max-height: 100px;
+.panel-title {
+  color: #f68327;
+  position: relative;
+}
+
+.panel-title:focus {
+  color: #d17020;
+  position: relative;
+}
+  
+.panel-title::after {
+	content: "\107";
+	right: 0px;
+	position: absolute;
+  font-family: "FontAwesome"
+}
+
+.panel-title[aria-expanded="true"]::after {
+	content: "\f106";
+}
+
+.panel-title[aria-expanded="false"]::after {
+	content: "\f107";
 }
 
 .list-group-item {

@@ -1,6 +1,7 @@
 [
   {
     "title": "Básicos",
+    "slug": "basicos",
     "icon": "fas fa-utensils",
     "options": [
       {
@@ -19,7 +20,7 @@
       {
         "name": "Sal",
         "synonyms":[
-          "sal"
+          ""
         ]
       },
       {
@@ -47,6 +48,7 @@
   },
   {
     "title": "Laticínios",
+    "slug": "laticinios",
     "icon": "fas fa-cheese",
     "options": [
       {
@@ -207,6 +209,7 @@
   },
   {
     "title": "Vegetais e Ervas",
+    "slug": "vegetais",
     "icon": "fas fa-carrot",
     "options": [
       {
@@ -402,6 +405,7 @@
   },
   {
     "title": "Frutas",
+    "slug": "frutas",
     "icon": "fas fa-apple-alt",
     "options": [
       {
@@ -550,6 +554,7 @@
   },
   {
     "title": "Grãos e Massas",
+    "slug": "massas",
     "icon": "fas fa-bread-slice",
     "options": [
       {
@@ -609,6 +614,7 @@
   },
   {
     "title": "Temperos",
+    "slug": "temperos",
     "icon": "fas fa-mortar-pestle",
     "options": [
       {
@@ -715,6 +721,7 @@
   },
   {
     "title": "Carnes",
+    "slug": "carnes",
     "icon": "fas fa-drumstick-bite",
     "options": [
       {
@@ -727,18 +734,35 @@
       {
         "name": "Filé Mignon",
         "synonyms":[
+          "carne",
           "mignon"
         ]
       },
       {
         "name": "Picanha",
         "synonyms":[
+          "carne",
           "picanha"
+        ]
+      },
+      {
+        "name": "Alcatra",
+        "synonyms":[
+          "carne",
+          "alcatra"
+        ]
+      },
+      {
+        "name": "Maminha",
+        "synonyms":[
+          "carne",
+          "maminha"
         ]
       },
       {
         "name": "Filé Bovino",
         "synonyms":[
+          "carne",
           "bife",
           "filé",
           "fillet"
@@ -747,24 +771,28 @@
       {
         "name": "Cupim",
         "synonyms":[
+          "carne",
           "cupim"
         ]
       },
       {
         "name": "Peito de frango",
         "synonyms":[
+          "frango",
           "peito de frango"
         ]
       },
       {
         "name": "Coxa de frango",
         "synonyms":[
+          "frango",
           "coxa de frango"
         ]
       },
       {
         "name": "Asinhas de frango",
         "synonyms":[
+          "frango",
           "asinhas de frango",
           "asas de frango",
           "asa de frango",
@@ -774,6 +802,7 @@
       {
         "name": "Filé de frango",
         "synonyms":[
+          "frango",
           "filé de frango",
           "file de frango",
           "fillet de frango"
@@ -782,6 +811,7 @@
       {
         "name": "Frango Desfiado",
         "synonyms":[
+          "frango",
           "frango desfiado"
         ]
       },
@@ -818,7 +848,8 @@
         "name": "Bacon",
         "synonyms":[
           "bacon",
-          "barriga de porco"
+          "barriga de porco",
+          "pancetta"
         ]
       },
       {
@@ -944,21 +975,22 @@
         ]
       },
       {
-        "name": "Panceta",
-        "synonyms":[
-          "panceta"
-        ]
-      },
-      {
         "name": "Cordeiro",
         "synonyms":[
           "cordeiro"
+        ]
+      },
+      {
+        "name": "Bode",
+        "synonyms":[
+          "bode"
         ]
       }
     ]
   },
   {
     "title": "Nozes e Sementes",
+    "slug": "noz",
     "icon": "fas fa-brain",
     "options": [
       {

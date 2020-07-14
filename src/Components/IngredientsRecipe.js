@@ -35,16 +35,20 @@ const IngredientsRecipe = () => {
         template = "template_xHsWf29c_clone"; // match bom
         if (result.allIngredients) template = "template_xHsWf29c"; // match perfeito
       }
-      const ingredientsHtml = `<ul>${result.recipe.ingredients.map(ing => `<li>${ing}</li>`)}</ul>`.replace(/>,</g,'><');;
-      const stepsHtml = `<ul>${result.recipe.steps.map(step => `<li>${step}</li>`)}</ul>`.replace(/>,</g,'><');
+      const ingredientsHtml = `<ul>${result.recipe.ingredients.map(
+        (ing) => `<li>${ing}</li>`
+      )}</ul>`.replace(/>,</g, "><");
+      const stepsHtml = `<ul>${result.recipe.steps.map(
+        (step) => `<li>${step}</li>`
+      )}</ul>`.replace(/>,</g, "><");
       window.emailjs
         .send("gmail", template, {
           to_email: email,
-          recipeTitle: result.recipe.title,
+          recipeTitle: result.recipe.slug,
           ingredients: ingredientsHtml,
           steps: stepsHtml,
           time: result.recipe.time.toLowerCase(),
-          quantity: result.recipe.quantity
+          quantity: result.recipe.quantity,
         })
         .then((res) => {
           setMailSuccess("Enviado com sucesso.");
@@ -61,18 +65,32 @@ const IngredientsRecipe = () => {
       arrayCopy.splice(index, 1);
       setIngredientsList(arrayCopy);
     } else {
-      setIngredientsList([name,...ingredientsList]);
+      setIngredientsList([name, ...ingredientsList]);
     }
   };
 
   return (
     <div className="row content ingredients-section">
-      <div className={`${width >= 900 ? "col-5 offset-1 text-right pt-4" : "col-12 text-center "}  my-auto`}>
-        <img className={`${width >= 900 ? "cooking-svg-sm" : "cooking-svg-smoll"}`} src={cookingSvg} alt="cooking_svg" />
+      <div
+        className={`${
+          width >= 900
+            ? "col-5 offset-1 text-right pt-4"
+            : "col-12 text-center "
+        }  my-auto`}
+      >
+        <img
+          className={`${width >= 900 ? "cooking-svg-sm" : "cooking-svg-smoll"}`}
+          src={cookingSvg}
+          alt="cooking_svg"
+        />
         <label htmlFor="receita" className="h3 mb-4">
           Que tal uma receita com os ingredientes que você já tem em casa?
         </label>
-        <p> Basta seleciona-los {width >= 900 ? "ao lado" : "abaixo"} e partir pra cozinha!</p>
+        <p>
+          {" "}
+          Basta seleciona-los {width >= 900 ? "ao lado" : "abaixo"} e partir pra
+          cozinha!
+        </p>
         <input
           type="email"
           className={`form-control ${mailError ? "border-error" : ""}`}
@@ -99,47 +117,110 @@ const IngredientsRecipe = () => {
           Me manda!
         </button>
       </div>
-      <div className="col-md-6 my-auto text-left">
-        <div className="row content">
-          {ingredients.map((category, i) => {
-            return (
-              <div key={`key__${category.title}__${i}`} className="col-md-6">
-                <div className="card m-4">
-                  <div className="card-body">
-                    <label htmlFor="cardapio" className="h5 mb-4 text-orange">
-                      <i className={`fas fa-${category.icon} mr-2`}></i>
-                      {category.title}
-                    </label>
-                    <ul className="list-group ingredients list-group-flush">
-                      {category.options.map((ing) => {
-                        return (
-                          <label
-                            className="form-check-label"
-                            htmlFor={`id__${ing.name}`}
-                            key={`key__${ing.name}}`}
-                          >
-                            <li className="list-group-item">
-                              <input
-                                className="form-check-input"
-                                type="checkbox"
-                                value=""
-                                onChange={() => setIngredients(ing.name)}
-                                checked={ingredientsList.includes(ing.name)}
-                                id={`id__${ing.name}}`}
-                              />
-                              {ing.name}
-                            </li>
-                          </label>
-                        );
-                      })}
-                    </ul>
+      {width >= 900 ? (
+        // desktop
+        <div className="col-md-6 my-auto text-left">
+          <div className="row content">
+            {ingredients.map((category, i) => {
+              return (
+                <div key={`key__${category.slug}__${i}`} className="col-md-6">
+                  <div className="card m-4">
+                    <div className="card-body">
+                      <label htmlFor="cardapio" className="h5 mb-4 text-orange">
+                        <i className={`fas fa-${category.icon} mr-2`}></i>
+                        {category.slug}
+                      </label>
+                      <ul className="list-group ingredients list-group-flush">
+                        {category.options.map((ing) => {
+                          return (
+                            <label
+                              className="form-check-label"
+                              htmlFor={`id__${ing.name}`}
+                              key={`key__${ing.name}}`}
+                            >
+                              <li className="list-group-item">
+                                <input
+                                  className="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  onChange={() => setIngredients(ing.name)}
+                                  checked={ingredientsList.includes(ing.name)}
+                                  id={`id__${ing.name}}`}
+                                />
+                                {ing.name}
+                              </li>
+                            </label>
+                          );
+                        })}
+                      </ul>
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
-      </div>
+      ) : (
+        // mobile
+        <div className="col-md-6 my-auto text-left pt-4">
+          <div className="accordion" id="accordion">
+            {ingredients.map((category, i) => {
+              return (
+                <div className="card" key={`card_key__${category.slug}__${i}`}>
+                  <div className="card-header" id={`label_key__${category.slug}__${i}`}>
+                    <h2 className="mb-0">
+                      <button
+                        className="btn btn-link btn-block text-left panel-title"
+                        type="button"
+                        data-toggle="collapse"
+                        data-target={`#key__${category.slug}__${i}`}
+                        aria-expanded="true"
+                        aria-controls={`key__${category.slug}__${i}`}
+                      >
+                        <i className={`fas fa-${category.icon} mr-2`}></i>
+                        {category.title}
+                      </button>
+                    </h2>
+                  </div>
+                  <div
+                    id={`key__${category.slug}__${i}`}
+                    className={`collapse ${i === 0 && 'show'}`}
+                    role="tabpanel"
+                    aria-labelledby={`label_key__${category.slug}__${i}`}
+                    data-parent="#accordion"
+                  >
+                    <div className="card-body">
+                      <ul className="list-group ingredients list-group-flush">
+                        {category.options.map((ing) => {
+                          return (
+                            <label
+                              className="form-check-label"
+                              htmlFor={`id__${ing.name}`}
+                              key={`key__${ing.name}}`}
+                            >
+                              <li className="list-group-item">
+                                <input
+                                  className="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  onChange={() => setIngredients(ing.name)}
+                                  checked={ingredientsList.includes(ing.name)}
+                                  id={`id__${ing.name}}`}
+                                />
+                                {ing.name}
+                              </li>
+                            </label>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
