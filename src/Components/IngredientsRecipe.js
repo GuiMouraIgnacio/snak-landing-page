@@ -167,14 +167,17 @@ const IngredientsRecipe = () => {
             {ingredients.map((category, i) => {
               return (
                 <div className="card" key={`card_key__${category.slug}__${i}`}>
-                  <div className="card-header" id={`label_key__${category.slug}__${i}`}>
+                  <div
+                    className="card-header"
+                    id={`label_key__${category.slug}__${i}`}
+                  >
                     <h2 className="mb-0">
                       <button
-                        className="btn btn-link btn-block text-left panel-title"
+                        className={`btn btn-link btn-block text-left panel-title`}
                         type="button"
                         data-toggle="collapse"
                         data-target={`#key__${category.slug}__${i}`}
-                        aria-expanded="true"
+                        aria-expanded={i === 0 ? "true" : "false"}
                         aria-controls={`key__${category.slug}__${i}`}
                       >
                         <i className={`fas fa-${category.icon} mr-2`}></i>
@@ -184,7 +187,7 @@ const IngredientsRecipe = () => {
                   </div>
                   <div
                     id={`key__${category.slug}__${i}`}
-                    className={`collapse ${i === 0 && 'show'}`}
+                    className={`collapse ${i === 0 && "show"}`}
                     role="tabpanel"
                     aria-labelledby={`label_key__${category.slug}__${i}`}
                     data-parent="#accordion"

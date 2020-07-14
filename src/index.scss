@@ -131,23 +131,24 @@
   position: relative;
 }
 
-.panel-title:focus:active {
+.btn-link:hover {
   color: #d17020;
+  text-decoration: none;
+}
+
+.panel-title:focus:active:hover {
+  color: #d17020 !important;
   position: relative;
 }
   
 .panel-title::after {
-	content: "\107";
+	content: "\f106";
 	right: 0px;
 	position: absolute;
   font-family: "FontAwesome"
 }
 
 .panel-title[aria-expanded="true"]::after {
-	content: "\f106";
-}
-
-.panel-title[aria-expanded="false"]::after {
 	content: "\f107";
 }
 
