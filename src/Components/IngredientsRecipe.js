@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import ingredients from "../helper/ingredients.json";
 import cookingSvg from "../assets/undraw_cooking_lyxy (2).svg";
 import filterRecipe from "../helper/recipeFilter";
+import useWindowDimensions from "../Hooks/useWindowDimensions";
+
 const validateEmail = (email) => {
   const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(email);
 };
 
 const IngredientsRecipe = () => {
+  const { width } = useWindowDimensions();
   const [email, setEmail] = useState("");
   const [mailError, setMailError] = useState("");
   const [mailSuccess, setMailSuccess] = useState("");
@@ -61,14 +64,15 @@ const IngredientsRecipe = () => {
       setIngredientsList([name,...ingredientsList]);
     }
   };
+
   return (
     <div className="row content ingredients-section">
-      <div className="col-5 offset-1 pt-4 my-auto text-right">
-        <img className="cooking-svg-sm" src={cookingSvg} alt="cooking_svg" />
+      <div className={`${width >= 900 ? "col-5 offset-1 text-right pt-4" : "col-12 text-center "}  my-auto`}>
+        <img className={`${width >= 900 ? "cooking-svg-sm" : "cooking-svg-smoll"}`} src={cookingSvg} alt="cooking_svg" />
         <label htmlFor="receita" className="h3 mb-4">
           Que tal uma receita com os ingredientes que você já tem em casa?
         </label>
-        <p> Basta seleciona-los ao lado e partir pra cozinha!</p>
+        <p> Basta seleciona-los {width >= 900 ? "ao lado" : "abaixo"} e partir pra cozinha!</p>
         <input
           type="email"
           className={`form-control ${mailError ? "border-error" : ""}`}

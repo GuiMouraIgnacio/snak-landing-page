@@ -1,5 +1,6 @@
 import React from "react";
 import app_svg from "../assets/undraw_Mobile_app_p3ts.svg";
+import useWindowDimensions from "../Hooks/useWindowDimensions";
 
 const features = [
   {
@@ -23,9 +24,10 @@ const features = [
 ];
 
 const Features = () => {
+  const { width } = useWindowDimensions();
   return (
     <div className="row content py-3">
-      <div className="col-md-6 my-5 text-right">
+      <div className={`${width >= 900 ? "col-6 text-right" : "col-12 text-center"} my-5`}>
         <div id="myCarousel" className="carousel slide" data-ride="carousel">
           <ol className="carousel-indicators">
             {features.map((feat, i) => (
@@ -45,7 +47,7 @@ const Features = () => {
               >
                 <div className="container">
                   <div className="carousel-caption text-left">
-                    <i className={`fas fa-${feat.icon} fa-7x`}></i>
+                    <i className={`fas fa-${feat.icon} ${width >= 900 ? "fa-7x" : "fa-3x"}`}></i>
                     <h1>{feat.name}</h1>
                     <p>{feat.description}</p>
                   </div>
@@ -79,8 +81,8 @@ const Features = () => {
           </a>
         </div>
       </div>
-      <div className="col-md-6 text-left my-auto">
-        <img className="cooking-svg" src={app_svg} alt="app_svg"></img>
+      <div className={`${width >= 900 ? "col-6 text-left" : "col-12 text-center"}  my-auto`}>
+        <img className={`${width >= 900 ? "cooking-svg" : "cooking-svg-smoll"}`} src={app_svg} alt="app_svg"></img>
       </div>
     </div>
   );
