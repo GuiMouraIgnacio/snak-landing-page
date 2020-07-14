@@ -124,13 +124,13 @@ const IngredientsRecipe = () => {
             {ingredients.map((category, i) => {
               return (
                 <div key={`key__${category.slug}__${i}`} className="col-md-6">
-                  <div className="card m-4">
+                  <div className="card-desktop m-4">
                     <div className="card-body">
                       <label htmlFor="cardapio" className="h5 mb-4 text-orange">
                         <i className={`fas fa-${category.icon} mr-2`}></i>
-                        {category.slug}
+                        {category.title}
                       </label>
-                      <ul className="list-group ingredients list-group-flush">
+                      <ul className="list-group ingredients-desktop list-group-flush">
                         {category.options.map((ing) => {
                           return (
                             <label
@@ -162,7 +162,7 @@ const IngredientsRecipe = () => {
         </div>
       ) : (
         // mobile
-        <div className="col-md-6 my-auto text-left pt-4">
+        <div className="col-md-6 my-auto text-left mx-auto pt-4">
           <div className="accordion" id="accordion">
             {ingredients.map((category, i) => {
               return (

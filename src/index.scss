@@ -156,3 +156,16 @@
   border: 0px;
   border-bottom: 1px solid rgba(0,0,0,.125);
 }
+
+.ingredients-desktop {
+  overflow-x: auto;
+  max-height: 100px;
+}
+
+.card-desktop {
+  background-color: #f8f9fa;
+  border: 0px !important;
+  border-radius: 0;
+  min-height: 120px;
+  max-height: 120px;
+}
