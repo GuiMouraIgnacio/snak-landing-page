@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+import axios from "axios";
 import ingredients from "../helper/ingredients.json";
 import cookingSvg from "../assets/undraw_cooking_lyxy (2).svg";
-import filterRecipe from "../helper/recipeFilter";
 import useWindowDimensions from "../Hooks/useWindowDimensions";
 
 const validateEmail = (email) => {
@@ -18,7 +18,6 @@ const IngredientsRecipe = () => {
     "Óleo",
     "Azeite",
     "Sal",
-    "Açúcar",
     "Farinha de Trigo",
     "Água",
   ]);
@@ -26,34 +25,43 @@ const IngredientsRecipe = () => {
     setMailSuccess("");
     if (validateEmail(email)) {
       setMailError("");
-      const result = filterRecipe(ingredientsList);
-      let template = "email_sem_receita"; // nao achou
-      if (result.allIngredients) {
-        template = "template_xHsWf29c_clone"; // match bom
-        if (!result.excessIngredients) template = "template_xHsWf29c"; // match perfeito
-      } else if (!result.excessIngredients) {
-        template = "template_xHsWf29c_clone"; // match bom
-        if (result.allIngredients) template = "template_xHsWf29c"; // match perfeito
-      }
-      const ingredientsHtml = `<ul>${result.recipe.ingredients.map(
-        (ing) => `<li>${ing}</li>`
-      )}</ul>`.replace(/>,</g, "><");
-      const stepsHtml = `<ul>${result.recipe.steps.map(
-        (step) => `<li>${step}</li>`
-      )}</ul>`.replace(/>,</g, "><");
-      window.emailjs
-        .send("gmail", template, {
-          to_email: email,
-          recipeTitle: result.recipe.slug,
-          ingredients: ingredientsHtml,
-          steps: stepsHtml,
-          time: result.recipe.time.toLowerCase(),
-          quantity: result.recipe.quantity,
+      axios
+        .post("https://snak-server.herokuapp.com/recipe", {
+          ingredients: ingredientsList,
         })
-        .then((res) => {
-          setMailSuccess("Enviado com sucesso.");
+        .then(function (response) {
+          const result = response.data.bestRecipe;
+          let template = "email_sem_receita"; // nao achou
+          if (result.allIngredients) {
+            template = "template_xHsWf29c_clone"; // match bom
+            if (!result.excessIngredients) template = "template_xHsWf29c"; // match perfeito
+          } else if (!result.excessIngredients) {
+            template = "template_xHsWf29c_clone"; // match bom
+            if (result.allIngredients) template = "template_xHsWf29c"; // match perfeito
+          }
+          const ingredientsHtml = `<ul>${result.recipe.ingredients.map(
+            (ing) => `<li>${ing}</li>`
+          )}</ul>`.replace(/>,</g, "><");
+          const stepsHtml = `<ul>${result.recipe.steps.map(
+            (step) => `<li>${step}</li>`
+          )}</ul>`.replace(/>,</g, "><");
+          window.emailjs
+            .send("gmail", template, {
+              to_email: email,
+              recipeTitle: result.recipe.slug,
+              ingredients: ingredientsHtml,
+              steps: stepsHtml,
+              time: result.recipe.time.toLowerCase(),
+              quantity: result.recipe.quantity,
+            })
+            .then((res) => {
+              setMailSuccess("Enviado com sucesso.");
+            })
+            .catch((err) => console.error("Oh well, email failed:", err));
         })
-        .catch((err) => console.error("Oh well, email failed:", err));
+        .catch(function (error) {
+          console.log(error);
+        });
     } else {
       setMailError("Email inválido.");
     }
