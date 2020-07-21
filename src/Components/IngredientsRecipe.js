@@ -48,7 +48,7 @@ const IngredientsRecipe = () => {
           window.emailjs
             .send("gmail", template, {
               to_email: email,
-              recipeTitle: result.recipe.slug,
+              recipeTitle: result.recipe.title,
               ingredients: ingredientsHtml,
               steps: stepsHtml,
               time: result.recipe.time.toLowerCase(),
@@ -57,9 +57,17 @@ const IngredientsRecipe = () => {
             .then((res) => {
               setMailSuccess("Enviado com sucesso.");
             })
-            .catch((err) => console.error("Oh well, email failed:", err));
+            .catch((err) => {
+              setMailError(
+                "Não conseguimos enviar, verifique se o email está correto."
+              );
+              console.error("Oh well, email failed:", err);
+            });
         })
         .catch(function (error) {
+          setMailError(
+            "Não conseguimos enviar, verifique se o email está correto."
+          );
           console.log(error);
         });
     } else {
@@ -99,31 +107,35 @@ const IngredientsRecipe = () => {
           Basta seleciona-los {width >= 900 ? "ao lado" : "abaixo"} e partir pra
           cozinha!
         </p>
-        <input
-          type="email"
-          className={`form-control ${mailError ? "border-error" : ""}`}
-          id="receita"
-          aria-describedby="emailHelp"
-          placeholder="Email"
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-        />
-        <small id="emailHelp" className="form-text">
-          Nāo iremos compartilhar seus dados.
-        </small>
-        {mailError && (
-          <p id="emailError" className="form-text text-danger">
-            {mailError}
-          </p>
+        {width >= 900 && (
+          <>
+            <input
+              type="email"
+              className={`form-control ${mailError ? "border-error" : ""}`}
+              id="receita"
+              aria-describedby="emailHelp"
+              placeholder="Email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+            />
+            <small id="emailHelp" className="form-text">
+              Nāo iremos compartilhar seus dados.
+            </small>
+            {mailError && (
+              <p id="emailError" className="form-text text-danger">
+                {mailError}
+              </p>
+            )}
+            {mailSuccess && (
+              <p id="emailError" className="form-text text-success">
+                {mailSuccess}
+              </p>
+            )}
+            <button className="btn btn-primary mt-3" onClick={sendMail}>
+              Me manda!
+            </button>
+          </>
         )}
-        {mailSuccess && (
-          <p id="emailError" className="form-text text-success">
-            {mailSuccess}
-          </p>
-        )}
-        <button className="btn btn-primary mt-3" onClick={sendMail}>
-          Me manda!
-        </button>
       </div>
       {width >= 900 ? (
         // desktop
@@ -230,6 +242,31 @@ const IngredientsRecipe = () => {
               );
             })}
           </div>
+          <input
+            type="email"
+            className={`form-control mt-4 ${mailError ? "border-error" : ""}`}
+            id="receita"
+            aria-describedby="emailHelp"
+            placeholder="Email"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+          />
+          <small id="emailHelp" className="form-text">
+            Nāo iremos compartilhar seus dados.
+          </small>
+          {mailError && (
+            <p id="emailError" className="form-text text-danger">
+              {mailError}
+            </p>
+          )}
+          {mailSuccess && (
+            <p id="emailError" className="form-text text-success">
+              {mailSuccess}
+            </p>
+          )}
+          <button className="btn btn-primary mt-3" onClick={sendMail}>
+            Me manda!
+          </button>
         </div>
       )}
     </div>
