@@ -50,19 +50,19 @@ const IngredientsRecipe = () => {
           if (result.outIngs === 0) {
             template = "template_xHsWf29c"; // match perfeito
           }
-          const ingredientsHtml = `<ul>${result.recipe.ingredients.map(
+          const ingredientsHtml = `<ul>${result.ingredients.map(
             (ing) => `<li>${ing}</li>`
           )}</ul>`.replace(/>,</g, "><");
-          const stepsHtml = `<ul>${result.recipe.steps.map(
+          const stepsHtml = `<ul>${result.steps.map(
             (step) => `<li>${step}</li>`
           )}</ul>`.replace(/>,</g, "><");
           window.emailjs
             .send("gmail", template, {
               to_email: email,
-              recipeTitle: result.recipe.title,
+              recipeTitle: result.title,
               ingredients: ingredientsHtml,
               steps: stepsHtml,
-              details: generateDetails(result.recipe),
+              details: generateDetails(result),
             })
             .then((res) => {
               setMailSuccess("Enviado com sucesso.");
