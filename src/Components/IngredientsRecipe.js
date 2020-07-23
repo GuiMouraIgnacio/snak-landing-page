@@ -2,11 +2,25 @@ import React, { useState } from "react";
 import axios from "axios";
 import ingredients from "../helper/ingredients.json";
 import cookingSvg from "../assets/undraw_cooking_lyxy (2).svg";
+import { extractDigits } from "../helper/helper";
 import useWindowDimensions from "../Hooks/useWindowDimensions";
 
 const validateEmail = (email) => {
   const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(email);
+};
+
+const generateDetails = (recipe) => {
+  let details = "";
+  const time = recipe.time.toLowerCase();
+  if (extractDigits(time) != "0" && extractDigits(time) != "") {
+    details += `O tempo de preparo é de aproximadamente ${time}.`;
+  }
+  const quantity = recipe.quantity;
+  if (extractDigits(quantity) != "0" && extractDigits(quantity) != "") {
+    details += `A receita rende ${quantity}!`;
+  }
+  return details;
 };
 
 const IngredientsRecipe = () => {
@@ -31,13 +45,10 @@ const IngredientsRecipe = () => {
         })
         .then(function (response) {
           const result = response.data.bestRecipe;
-          let template = "email_sem_receita"; // nao achou
-          if (result.allIngredients) {
-            template = "template_xHsWf29c_clone"; // match bom
-            if (!result.excessIngredients) template = "template_xHsWf29c"; // match perfeito
-          } else if (!result.excessIngredients) {
-            template = "template_xHsWf29c_clone"; // match bom
-            if (result.allIngredients) template = "template_xHsWf29c"; // match perfeito
+          let template = "template_xHsWf29c_clone"; // match bom
+          if (!result) template = "email_sem_receita" // nao achou
+          if (result.outIngs === 0) {
+            template = "template_xHsWf29c"; // match perfeito
           }
           const ingredientsHtml = `<ul>${result.recipe.ingredients.map(
             (ing) => `<li>${ing}</li>`
@@ -51,8 +62,7 @@ const IngredientsRecipe = () => {
               recipeTitle: result.recipe.title,
               ingredients: ingredientsHtml,
               steps: stepsHtml,
-              time: result.recipe.time.toLowerCase(),
-              quantity: result.recipe.quantity,
+              details: generateDetails(result.recipe),
             })
             .then((res) => {
               setMailSuccess("Enviado com sucesso.");
