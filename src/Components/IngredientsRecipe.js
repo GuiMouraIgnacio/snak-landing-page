@@ -32,7 +32,6 @@ const IngredientsRecipe = () => {
     "Óleo",
     "Azeite",
     "Sal",
-    "Farinha de Trigo",
     "Água",
   ]);
   const sendMail = () => {
