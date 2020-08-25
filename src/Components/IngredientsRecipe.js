@@ -1,33 +1,15 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 import ingredients from "../helper/ingredients.json";
 import cookingSvg from "../assets/undraw_cooking_lyxy (2).svg";
-import { extractDigits } from "../helper/helper";
 import useWindowDimensions from "../Hooks/useWindowDimensions";
 
-const validateEmail = (email) => {
-  const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(email);
-};
 
-const generateDetails = (recipe) => {
-  let details = "";
-  const time = recipe.time.toLowerCase();
-  if (extractDigits(time) != "0" && extractDigits(time) != "") {
-    details += `O tempo de preparo é de aproximadamente ${time}.`;
-  }
-  const quantity = recipe.quantity;
-  if (extractDigits(quantity) != "0" && extractDigits(quantity) != "") {
-    details += `A receita rende ${quantity}!`;
-  }
-  return details;
-};
 
 const IngredientsRecipe = () => {
+  const history = useHistory();
   const { width } = useWindowDimensions();
-  const [email, setEmail] = useState("");
-  const [mailError, setMailError] = useState("");
-  const [mailSuccess, setMailSuccess] = useState("");
   const [ingredientsList, setIngredientsList] = useState([
     "Óleo",
     "Azeite",
@@ -35,53 +17,18 @@ const IngredientsRecipe = () => {
     "Água",
   ]);
   const sendMail = () => {
-    setMailSuccess("");
-    if (validateEmail(email)) {
-      setMailError("");
-      axios
-        .post("https://snak-server.herokuapp.com/recipe", {
-          ingredients: ingredientsList,
-        })
-        .then(function (response) {
-          const result = response.data.bestRecipe;
-          let template = "template_xHsWf29c_clone"; // match bom
-          if (!result) template = "email_sem_receita" // nao achou
-          if (result.outIngs === 0) {
-            template = "template_xHsWf29c"; // match perfeito
-          }
-          const ingredientsHtml = `<ul>${result.ingredients.map(
-            (ing) => `<li>${ing}</li>`
-          )}</ul>`.replace(/>,</g, "><");
-          const stepsHtml = `<ul>${result.steps.map(
-            (step) => `<li>${step}</li>`
-          )}</ul>`.replace(/>,</g, "><");
-          window.emailjs
-            .send("gmail", template, {
-              to_email: email,
-              recipeTitle: result.title,
-              ingredients: ingredientsHtml,
-              steps: stepsHtml,
-              details: generateDetails(result),
-            })
-            .then((res) => {
-              setMailSuccess("Enviado com sucesso.");
-            })
-            .catch((err) => {
-              setMailError(
-                "Não conseguimos enviar, verifique se o email está correto."
-              );
-              console.error("Oh well, email failed:", err);
-            });
-        })
-        .catch(function (error) {
-          setMailError(
-            "Não conseguimos enviar, verifique se o email está correto."
-          );
-          console.log(error);
-        });
-    } else {
-      setMailError("Email inválido.");
-    }
+    axios
+      .post("http://localhost:8000/recipe", {
+        // .post("https://snak-server.herokuapp.com/recipe", {
+        ingredients: ingredientsList,
+      })
+      .then(function (response) {
+        const result = response.data.bestRecipe;
+        history.push(`/recipes/${Date.now()}`, { result });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
   const setIngredients = (name) => {
     const index = ingredientsList.indexOf(name);
@@ -117,33 +64,9 @@ const IngredientsRecipe = () => {
           cozinha!
         </p>
         {width >= 900 && (
-          <>
-            <input
-              type="email"
-              className={`form-control ${mailError ? "border-error" : ""}`}
-              id="receita"
-              aria-describedby="emailHelp"
-              placeholder="Email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-            />
-            <small id="emailHelp" className="form-text">
-              Nāo iremos compartilhar seus dados.
-            </small>
-            {mailError && (
-              <p id="emailError" className="form-text text-danger">
-                {mailError}
-              </p>
-            )}
-            {mailSuccess && (
-              <p id="emailError" className="form-text text-success">
-                {mailSuccess}
-              </p>
-            )}
-            <button className="btn btn-primary mt-3" onClick={sendMail}>
-              Me manda!
-            </button>
-          </>
+          <button className="btn btn-primary mt-3" onClick={sendMail}>
+            Me mostra!
+          </button>
         )}
       </div>
       {width >= 900 ? (
@@ -251,30 +174,9 @@ const IngredientsRecipe = () => {
               );
             })}
           </div>
-          <input
-            type="email"
-            className={`form-control mt-4 ${mailError ? "border-error" : ""}`}
-            id="receita"
-            aria-describedby="emailHelp"
-            placeholder="Email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-          />
-          <small id="emailHelp" className="form-text">
-            Nāo iremos compartilhar seus dados.
-          </small>
-          {mailError && (
-            <p id="emailError" className="form-text text-danger">
-              {mailError}
-            </p>
-          )}
-          {mailSuccess && (
-            <p id="emailError" className="form-text text-success">
-              {mailSuccess}
-            </p>
-          )}
+
           <button className="btn btn-primary mt-3" onClick={sendMail}>
-            Me manda!
+            Me mostra!
           </button>
         </div>
       )}
