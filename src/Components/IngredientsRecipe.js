@@ -5,8 +5,6 @@ import ingredients from "../helper/ingredients.json";
 import cookingSvg from "../assets/undraw_cooking_lyxy (2).svg";
 import useWindowDimensions from "../Hooks/useWindowDimensions";
 
-
-
 const IngredientsRecipe = () => {
   const history = useHistory();
   const { width } = useWindowDimensions();
@@ -18,8 +16,7 @@ const IngredientsRecipe = () => {
   ]);
   const sendMail = () => {
     axios
-      .post("http://localhost:8000/recipe", {
-        // .post("https://snak-server.herokuapp.com/recipe", {
+      .post("https://snak-server.herokuapp.com/recipe", {
         ingredients: ingredientsList,
       })
       .then(function (response) {
