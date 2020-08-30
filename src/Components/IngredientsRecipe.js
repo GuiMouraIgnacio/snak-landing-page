@@ -61,7 +61,7 @@ const IngredientsRecipe = () => {
           cozinha!
         </p>
         {width >= 900 && (
-          <button className="btn btn-primary mt-3" onClick={sendMail}>
+          <button className="btn btn-primary mt-3" id="receita" onClick={sendMail}>
             Me mostra!
           </button>
         )}
