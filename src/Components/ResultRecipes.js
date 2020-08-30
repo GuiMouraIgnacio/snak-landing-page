@@ -7,7 +7,7 @@ import { extractDigits } from "../helper/helper";
 const ResultRecipes = ({ location: { state = {} } = {} } = {}) => {
   const { width } = useWindowDimensions();
   const history = useHistory();
-  console.log(state);
+  window.scrollTo(0, 0)
 
   const generateAmount = (recipe) => {
     const quantity = extractDigits(recipe.amount);
